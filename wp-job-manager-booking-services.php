@@ -77,12 +77,33 @@ class WP_Job_Manager_Booking_Services {
 	 * @return array
 	 */
 	public function settings( $settings = array() ) {
+		//OpenTable
 		$wpjm_booking_settings[] = array(
 				'name' 		=> 'job_manager_enable_opentable_reservations',
 				'std' 		=> '',
 				'label' 	=> __( 'Booking Services', 'wp-job-manager-booking-services' ),
 				'cb_label'  => __( 'Enable OpenTable Reservations', 'wp-job-manager-booking-services' ),
 				'desc'		=> __( 'Let your users add their OpenTable restaurant ID for online reservations. <a href="https://www.otrestaurant.com/marketing/ReservationWidget" target="_blank">Read More<a/>', 'wp-job-manager-booking-services' ),
+				'type'      => 'checkbox'
+		);
+
+		//Resurva
+		$wpjm_booking_settings[] = array(
+				'name' 		=> 'job_manager_enable_resurva_reservations',
+				'std' 		=> '',
+				'label' 	=> '',
+				'cb_label'  => __( 'Enable Resurva Bookings', 'wp-job-manager-booking-services' ),
+				'desc'		=> __( 'Let your users add their Resurva URL for online bookings. <a href="https://resurva.com/" target="_blank">Read More<a/>', 'wp-job-manager-booking-services' ),
+				'type'      => 'checkbox'
+		);
+
+		//Guestful
+		$wpjm_booking_settings[] = array(
+				'name' 		=> 'job_manager_enable_guestful_reservations',
+				'std' 		=> '',
+				'label' 	=> '',
+				'cb_label'  => __( 'Enable Guestful Reservations', 'wp-job-manager-booking-services' ),
+				'desc'		=> __( 'Let your users add their Guestful restaurant ID for online reservations. <a href="https://www.guestful.com/free-restaurant-reservation-system" target="_blank">Read More<a/>', 'wp-job-manager-booking-services' ),
 				'type'      => 'checkbox'
 		);
 
@@ -112,7 +133,31 @@ class WP_Job_Manager_Booking_Services {
 					'type'        => 'text',
 					'required'    => false,
 					'placeholder' => __( 'e.g. 324789', 'wp-job-manager-booking-services' ),
-					'priority'    => 9
+					'priority'    => 9.1
+			);
+		}
+
+		//Now Resurva
+		if ( get_option( 'job_manager_enable_resurva_reservations' ) ) {
+			$fields['job']['job_booking_services_resurva'] = array(
+					'label'       => __( 'Resurva URL', 'wp-job-manager-booking-services' ),
+					'description' => __( 'Your Resurva URL (the URL you used to access your booking widget). Find out how to <a href="https://resurva.com/" target="_blank">get one</a>.', 'wp-job-manager-booking-services' ),
+					'type'        => 'text',
+					'required'    => false,
+					'placeholder' => __( 'e.g. https://pixelgrade.resurva.com/', 'wp-job-manager-booking-services' ),
+					'priority'    => 9.2
+			);
+		}
+
+		//And Guestful
+		if ( get_option( 'job_manager_enable_guestful_reservations' ) ) {
+			$fields['job']['job_booking_services_guestful'] = array(
+					'label'       => __( 'Guestful Restaurant ID', 'wp-job-manager-booking-services' ),
+					'description' => __( 'Your Guestful restaurant ID. Find out how to <a href="https://www.guestful.com/free-restaurant-reservation-system" target="_blank">get one</a>.', 'wp-job-manager-booking-services' ),
+					'type'        => 'text',
+					'required'    => false,
+					'placeholder' => __( 'e.g. cU9tMVwlBTAm-v59E5rqjJ', 'wp-job-manager-booking-services' ),
+					'priority'    => 9.3
 			);
 		}
 
@@ -140,6 +185,26 @@ class WP_Job_Manager_Booking_Services {
 			update_post_meta( $job_ID, '_booking_services_opentable', $value );
 		}
 
+		//the Resurva field
+		if ( get_option( 'job_manager_enable_resurva_reservations' ) ) {
+			$value = isset( $values['job']['job_booking_services_resurva'] ) ? $values['job']['job_booking_services_resurva'] : '';
+
+			//clean it up a little bit
+			$value = trim( $value );
+
+			update_post_meta( $job_ID, '_booking_services_resurva', $value );
+		}
+
+		// the Guestful field
+		if ( get_option( 'job_manager_enable_guestful_reservations' ) ) {
+			$value = isset( $values['job']['job_booking_services_guestful'] ) ? $values['job']['job_booking_services_guestful'] : '';
+
+			//clean it up a little bit
+			$value = trim( $value );
+
+			update_post_meta( $job_ID, '_booking_services_guestful', $value );
+		}
+
 	}
 
 	/**
@@ -159,6 +224,24 @@ class WP_Job_Manager_Booking_Services {
 					'label'       => __( 'OpenTable Restaurant ID', 'wp-job-manager-booking-services' ),
 					'placeholder' => '',
 					'priority'    => 11.1
+			);
+		}
+
+		//the Resurva field
+		if ( get_option( 'job_manager_enable_resurva_reservations' ) ) {
+			$fields['_booking_services_resurva'] = array(
+					'label'       => __( 'Resurva URL', 'wp-job-manager-booking-services' ),
+					'placeholder' => '',
+					'priority'    => 11.2
+			);
+		}
+
+		//the Guestful field
+		if ( get_option( 'job_manager_enable_guestful_reservations' ) ) {
+			$fields['_booking_services_guestful'] = array(
+					'label'       => __( 'Guestful Restaurant ID', 'wp-job-manager-booking-services' ),
+					'placeholder' => '',
+					'priority'    => 11.3
 			);
 		}
 
@@ -182,6 +265,20 @@ class WP_Job_Manager_Booking_Services {
 			//first the OpenTable field
 			if ( ! isset( $_POST['_booking_services_opentable'] ) ) {
 				update_post_meta( $post_ID, '_booking_services_opentable', '' );
+			}
+		}
+
+		if ( get_option( 'job_manager_enable_resurva_reservations' ) ) {
+			//the Resurva field
+			if ( ! isset( $_POST['_booking_services_resurva'] ) ) {
+				update_post_meta( $post_ID, '_booking_services_resurva', '' );
+			}
+		}
+
+		if ( get_option( 'job_manager_enable_guestful_reservations' ) ) {
+			//the Guestful field
+			if ( ! isset( $_POST['_booking_services_guestful'] ) ) {
+				update_post_meta( $post_ID, '_booking_services_guestful', '' );
 			}
 		}
 
