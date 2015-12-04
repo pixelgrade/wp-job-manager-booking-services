@@ -47,10 +47,10 @@ class WP_Job_Manager_Booking_Services {
 		//Save fields data for the frontend submit form
 		add_filter( 'submit_job_form_fields_get_job_data', array( $this, 'update_job_data_booking_services' ), 10, 2 );
 
-		// Add booking fields to backend
+		// Add booking fields to the WP admin area
 		add_filter( 'job_manager_job_listing_data_fields', array( $this, 'add_job_data_booking_services_fields' ) );
 
-		// Save an empty value when the booking services fields are not in $_POST
+		// Save an empty value when the booking services fields are not in $_POST since WPJM doesn't do this for us
 		add_action( 'job_manager_save_job_listing', array( $this, 'save_job_listing_data' ), 21, 2 );
 	}
 
@@ -195,7 +195,7 @@ class WP_Job_Manager_Booking_Services {
 			update_post_meta( $job_ID, '_booking_services_resurva', $value );
 		}
 
-		// the Guestful field
+		//the Guestful field
 		if ( get_option( 'job_manager_enable_guestful_reservations' ) ) {
 			$value = isset( $values['job']['job_booking_services_guestful'] ) ? $values['job']['job_booking_services_guestful'] : '';
 

@@ -3,12 +3,12 @@
 Author URI: https://pixelgrade.com
 Plugin URI: https://pixelgrade.com
 Contributors: vlad.olaru, pixelgrade
-Tags: job, job listing, booking, opentable, resurva, guestful
+Tags: job, job listing, bookings, appointments, reservations, restaurant, opentable, resurva, guestful
 Requires at least: 4.1
 Tested up to: 4.4
 Stable Tag: 1.0.0
-License: GPLv3
-License URI: http://www.gnu.org/licenses/gpl-3.0.html
+License: GPLv2 or later
+License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
 Add fields and widgets for 3rd party booking services like OpenTable to your listings.
 
