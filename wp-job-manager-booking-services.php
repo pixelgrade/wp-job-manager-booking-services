@@ -118,11 +118,11 @@ class WP_Job_Manager_Booking_Services {
 		//first the OpenTable field
 		if ( get_option( 'job_manager_enable_opentable_reservations' ) ) {
 			$fields['job']['job_booking_services_opentable'] = array(
-					'label'       => __( 'OpenTable Restaurant ID', 'wp-job-manager-booking-services' ),
-					'description' => __( 'Your restaurant\'s ID. Find out how to <a href="https://www.otrestaurant.com/" target="_blank">get one</a>.', 'wp-job-manager-booking-services' ),
+					'label'       => esc_html__( 'OpenTable Restaurant ID', 'wp-job-manager-booking-services' ),
+					'description' => wp_kses( __( 'Your restaurant\'s ID. Find out how to <a href="https://www.otrestaurant.com/" target="_blank">get one</a>.', 'wp-job-manager-booking-services' ), wp_kses_allowed_html() ),
 					'type'        => 'text',
 					'required'    => false,
-					'placeholder' => __( 'e.g. 324789', 'wp-job-manager-booking-services' ),
+					'placeholder' => esc_html__( 'e.g. 324789', 'wp-job-manager-booking-services' ),
 					'priority'    => 9.1
 			);
 		}
@@ -130,11 +130,11 @@ class WP_Job_Manager_Booking_Services {
 		//Now Resurva
 		if ( get_option( 'job_manager_enable_resurva_reservations' ) ) {
 			$fields['job']['job_booking_services_resurva'] = array(
-					'label'       => __( 'Resurva URL', 'wp-job-manager-booking-services' ),
-					'description' => __( 'Your Resurva URL (the URL you used to access your booking widget). Find out how to <a href="https://resurva.com/" target="_blank">get one</a>.', 'wp-job-manager-booking-services' ),
+					'label'       => esc_html__( 'Resurva URL', 'wp-job-manager-booking-services' ),
+					'description' => wp_kses( __( 'Your Resurva URL (the URL you used to access your booking widget). Find out how to <a href="https://resurva.com/" target="_blank">get one</a>.', 'wp-job-manager-booking-services' ), wp_kses_allowed_html() ),
 					'type'        => 'text',
 					'required'    => false,
-					'placeholder' => __( 'e.g. https://pixelgrade.resurva.com/', 'wp-job-manager-booking-services' ),
+					'placeholder' => esc_html__( 'e.g. https://pixelgrade.resurva.com/', 'wp-job-manager-booking-services' ),
 					'priority'    => 9.2
 			);
 		}
@@ -189,7 +189,7 @@ class WP_Job_Manager_Booking_Services {
 		//first the OpenTable field
 		if ( get_option( 'job_manager_enable_opentable_reservations' ) ) {
 			$fields['_booking_services_opentable'] = array(
-					'label'       => __( 'OpenTable Restaurant ID', 'wp-job-manager-booking-services' ),
+					'label'       => esc_html__( 'OpenTable Restaurant ID', 'wp-job-manager-booking-services' ),
 					'placeholder' => '',
 					'priority'    => 11.1
 			);
@@ -198,7 +198,7 @@ class WP_Job_Manager_Booking_Services {
 		//the Resurva field
 		if ( get_option( 'job_manager_enable_resurva_reservations' ) ) {
 			$fields['_booking_services_resurva'] = array(
-					'label'       => __( 'Resurva URL', 'wp-job-manager-booking-services' ),
+					'label'       => esc_html__( 'Resurva URL', 'wp-job-manager-booking-services' ),
 					'placeholder' => '',
 					'priority'    => 11.2
 			);

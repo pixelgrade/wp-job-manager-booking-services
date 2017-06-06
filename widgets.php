@@ -206,8 +206,8 @@ class WPJM_Booking_Services_Widget extends WP_Widget {
 		$placeholders = wp_parse_args(
 				(array) $placeholders,
 				array(
-						'opentable_title'           => esc_html__( 'Book a Table', 'wp-job-manager-booking-services' ),
-						'opentable_subtitle'        => esc_html__( 'Your dinner is a few clicks away.', 'wp-job-manager-booking-services' ),
+						'opentable_title'         => esc_html__( 'Book a Table', 'wp-job-manager-booking-services' ),
+						'opentable_subtitle'      => esc_html__( 'Your dinner is a few clicks away.', 'wp-job-manager-booking-services' ),
 						'resurva_title'           => esc_html__( 'Book Online Now', 'wp-job-manager-booking-services' ),
 						'resurva_subtitle'        => esc_html__( 'It just takes a few seconds.', 'wp-job-manager-booking-services' ),
 				) );
