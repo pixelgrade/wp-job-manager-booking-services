@@ -149,28 +149,28 @@ class WP_Job_Manager_Booking_Services {
 	 *
 	 * @since 1.0.0
 	 *
-	 * @param 	int $job_ID
-	 * @param 	array $values List of submitted values.
+	 * @param array $fields List of submitted values.
+	 * @param WP_Post $job
 	 */
-	public function update_job_data_booking_services( $job_ID, $values ) {
+	public function update_job_data_booking_services( $fields, $job ) {
 		//first the OpenTable field
 		if ( get_option( 'job_manager_enable_opentable_reservations' ) ) {
-			$value = isset( $values['job']['job_booking_services_opentable'] ) ? $values['job']['job_booking_services_opentable'] : '';
+			$value = isset( $fields['job']['job_booking_services_opentable'] ) ? $fields['job']['job_booking_services_opentable'] : '';
 
 			//clean it up a little bit
 			$value = trim( $value );
 
-			update_post_meta( $job_ID, '_booking_services_opentable', $value );
+			update_post_meta( $job->ID, '_booking_services_opentable', $value );
 		}
 
 		//the Resurva field
 		if ( get_option( 'job_manager_enable_resurva_reservations' ) ) {
-			$value = isset( $values['job']['job_booking_services_resurva'] ) ? $values['job']['job_booking_services_resurva'] : '';
+			$value = isset( $fields['job']['job_booking_services_resurva'] ) ? $fields['job']['job_booking_services_resurva'] : '';
 
 			//clean it up a little bit
 			$value = trim( $value );
 
-			update_post_meta( $job_ID, '_booking_services_resurva', $value );
+			update_post_meta( $job->ID, '_booking_services_resurva', $value );
 		}
 
 	}
