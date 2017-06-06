@@ -3,10 +3,10 @@
 Author URI: https://pixelgrade.com
 Plugin URI: https://pixelgrade.com
 Contributors: vlad.olaru, pixelgrade
-Tags: job, job listing, bookings, appointments, reservations, restaurant, opentable, resurva, guestful
+Tags: job, job listing, bookings, appointments, reservations, restaurant, opentable, resurva
 Requires at least: 4.1
-Tested up to: 4.4
-Stable Tag: 1.0.0
+Tested up to: 4.8
+Stable Tag: 1.0.1
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -19,11 +19,16 @@ Allow your users to add their OpenTable ID to a listing and display the booking 
 == Installation ==
 
 1. Install and Activate
-2. Go to "Job Listings > Settings > 3rd Party Booking Services" and activate the services that you want.
+2. Go to "Job Listings > Settings > Booking Services" and activate the services that you want.
 
 == Frequently Asked Questions ==
 
 == Changelog ==
+
+= 1.0.1: June 6, 2017 =
+
+* Removed Guestful support since it has been discontinued.
+* Added message in widget form when no service ahs been selected.
 
 = 1.0.0: December 2, 2015 =
 

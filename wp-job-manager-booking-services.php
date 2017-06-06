@@ -5,7 +5,7 @@
  * Description: Add fields for booking services like OpenTable to your listings.
  * Author:      PixelGrade
  * Author URI:  https://pixelgrade.com
- * Version:     1.0.0
+ * Version:     1.0.1
  * Text Domain: wp-job-manager-booking-services
  */
 
@@ -28,7 +28,7 @@ class WP_Job_Manager_Booking_Services {
 
 	public function __construct() {
 		// Define constants
-		define( 'WPJM_BOOKING_SERVICES_VERSION', '1.0.0' );
+		define( 'WPJM_BOOKING_SERVICES_VERSION', '1.0.1' );
 
 		//include the widgets
 		include_once( plugin_dir_path( __FILE__ ) . '/widgets.php' );
@@ -97,16 +97,6 @@ class WP_Job_Manager_Booking_Services {
 				'type'      => 'checkbox'
 		);
 
-		//Guestful
-		$wpjm_booking_settings[] = array(
-				'name' 		=> 'job_manager_enable_guestful_reservations',
-				'std' 		=> '',
-				'label' 	=> '',
-				'cb_label'  => __( 'Enable Guestful Reservations', 'wp-job-manager-booking-services' ),
-				'desc'		=> __( 'Let your users add their Guestful restaurant ID for online reservations. <a href="https://www.guestful.com/free-restaurant-reservation-system" target="_blank">Read More<a/>', 'wp-job-manager-booking-services' ),
-				'type'      => 'checkbox'
-		);
-
 		//let others mess around with the settings
 		$wpjm_booking_settings = apply_filters( 'wp_job_manager_booking_services_settings', $wpjm_booking_settings);
 
@@ -149,18 +139,6 @@ class WP_Job_Manager_Booking_Services {
 			);
 		}
 
-		//And Guestful
-		if ( get_option( 'job_manager_enable_guestful_reservations' ) ) {
-			$fields['job']['job_booking_services_guestful'] = array(
-					'label'       => __( 'Guestful Restaurant ID', 'wp-job-manager-booking-services' ),
-					'description' => __( 'Your Guestful restaurant ID. Find out how to <a href="https://www.guestful.com/free-restaurant-reservation-system" target="_blank">get one</a>.', 'wp-job-manager-booking-services' ),
-					'type'        => 'text',
-					'required'    => false,
-					'placeholder' => __( 'e.g. cU9tMVwlBTAm-v59E5rqjJ', 'wp-job-manager-booking-services' ),
-					'priority'    => 9.3
-			);
-		}
-
 		return $fields;
 	}
 
@@ -195,16 +173,6 @@ class WP_Job_Manager_Booking_Services {
 			update_post_meta( $job_ID, '_booking_services_resurva', $value );
 		}
 
-		//the Guestful field
-		if ( get_option( 'job_manager_enable_guestful_reservations' ) ) {
-			$value = isset( $values['job']['job_booking_services_guestful'] ) ? $values['job']['job_booking_services_guestful'] : '';
-
-			//clean it up a little bit
-			$value = trim( $value );
-
-			update_post_meta( $job_ID, '_booking_services_guestful', $value );
-		}
-
 	}
 
 	/**
@@ -236,15 +204,6 @@ class WP_Job_Manager_Booking_Services {
 			);
 		}
 
-		//the Guestful field
-		if ( get_option( 'job_manager_enable_guestful_reservations' ) ) {
-			$fields['_booking_services_guestful'] = array(
-					'label'       => __( 'Guestful Restaurant ID', 'wp-job-manager-booking-services' ),
-					'placeholder' => '',
-					'priority'    => 11.3
-			);
-		}
-
 		return $fields;
 
 	}
@@ -272,13 +231,6 @@ class WP_Job_Manager_Booking_Services {
 			//the Resurva field
 			if ( ! isset( $_POST['_booking_services_resurva'] ) ) {
 				update_post_meta( $post_ID, '_booking_services_resurva', '' );
-			}
-		}
-
-		if ( get_option( 'job_manager_enable_guestful_reservations' ) ) {
-			//the Guestful field
-			if ( ! isset( $_POST['_booking_services_guestful'] ) ) {
-				update_post_meta( $post_ID, '_booking_services_guestful', '' );
 			}
 		}
 
